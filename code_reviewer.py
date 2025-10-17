@@ -5,7 +5,8 @@ from crewai import Agent, Task, Crew, LLM
 load_dotenv()
 # Set up the Gemini LLM (Large Language Model – basically the AI brain)
 gemini_llm = LLM(
-    model="gemini/gemini-1.5-pro-latest",  # This is a solid Gemini model for reasoning/code
+    # model="gemini/gemini-2.5-pro-latest",  # This is a solid Gemini model for reasoning/code
+    model="gemini/gemini-2.5-flash",
     api_key=os.getenv("GEMINI_API_KEY"),   # Grabs your key from the env
     temperature=0.3                        # Low temp means more precise, less creative answers
 )
