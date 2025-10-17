@@ -49,7 +49,7 @@ analyze_task = Task(
     expected_output="A report listing potential errors, their locations, and explanations.",
     agent=analyzer
 )
-##
+
 # Task 2: Suggest fixes based on the analysis
 suggest_task = Task(
     description="Using the analysis from the previous task, suggest specific fixes and improvements for the code snippet: {code_snippet}. Explain why each fix works.",
