@@ -29,19 +29,34 @@ suggester = Agent(
     verbose=True
 )
 
+# # Task 1: Analyze the code
+# analyze_task = Task(
+#     description="Thoroughly review the provided code snippet for any errors, bugs, or improvements. Be detailed.",
+#     expected_output="A report listing potential errors, their locations, and explanations.",
+#     agent=analyzer
+# )
+
+# # Task 2: Suggest fixes based on the analysis
+# suggest_task = Task(
+#     description="Using the analysis from the previous task, suggest specific code fixes and why they work.",
+#     expected_output="Rewritten code snippets with fixes, plus explanations.",
+#     agent=suggester
+# )
+
 # Task 1: Analyze the code
 analyze_task = Task(
-    description="Thoroughly review the provided code snippet for any errors, bugs, or improvements. Be detailed.",
+    description="Thoroughly review the following code snippet for any errors, bugs, or improvements: {code_snippet}. Be detailed.",
     expected_output="A report listing potential errors, their locations, and explanations.",
     agent=analyzer
 )
 
 # Task 2: Suggest fixes based on the analysis
 suggest_task = Task(
-    description="Using the analysis from the previous task, suggest specific code fixes and why they work.",
+    description="Using the analysis from the previous task, suggest specific fixes and improvements for the code snippet: {code_snippet}. Explain why each fix works.",
     expected_output="Rewritten code snippets with fixes, plus explanations.",
     agent=suggester
 )
+
 
 # Assemble the Crew (the team of agents)
 crew = Crew(
@@ -56,6 +71,10 @@ def add_numbers(a, b)
     return a + b  # Missing colon? Oops!
 print(add_numbers(5, 'ten'))  # Type mismatch, heh
 """
+
+# Right before crew.kickoff
+print("Input being sent to crew:", buggy_code)
+result = crew.kickoff(inputs={"code_snippet": buggy_code})
 
 # Run the crew with the input
 result = crew.kickoff(inputs={"code_snippet": buggy_code})
